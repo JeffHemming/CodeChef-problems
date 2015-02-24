@@ -1,0 +1,59 @@
+//http://www.codechef.com/problems/GERALD03/
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
+public class Main {
+ 
+    public static void main(String[]args) throws IOException {
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        int t =Integer.parseInt(input.readLine());
+        for(;t>0;t--) {
+            StringBuilder sequence=new StringBuilder();
+            int count=0;
+            int n=Integer.parseInt(input.readLine());
+            String[] start = input.readLine().split(" ");
+            int lc = Integer.parseInt(start[0]);
+            int rc = Integer.parseInt(start[1]);
+            n--;
+            while(n>0){
+                String[] target = input.readLine().split(" ");
+                int lt = Integer.parseInt(target[0]);
+                int rt = Integer.parseInt(target[1]);
+                while(lc!=lt||rc!=rt) {
+                    while (lc < lt){
+                        if(lc + 1 >= rc){
+                            sequence = sequence.append("R+");
+                            count++;
+                            rc++;
+                        }
+                        else {
+                            sequence = sequence.append("L+");
+                            count++;
+                            lc++;
+                        }
+                    }
+                    while (lc > lt) {
+                        sequence = sequence.append("L-");
+                        count++;
+                        lc--;
+                    }
+                    while (rc < rt) {
+                        sequence = sequence.append("R+");
+                        count++;
+                        rc++;
+                    }
+                    while (rc > rt) {
+                        sequence = sequence.append("R-");
+                        count++;
+                        rc--;
+                    }
+                }
+                n--;
+            }
+            System.out.println(count);
+            System.out.println(sequence);
+        }
+    }
+}
