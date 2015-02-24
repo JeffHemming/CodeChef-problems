@@ -1,0 +1,35 @@
+//http://www.codechef.com/problems/A1/
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+ 
+public class Main {
+ 
+    public static boolean walletCheck(int[] wallet, int m, int s){
+        if(m==0)return true;
+        else if(s>=wallet.length)return false;
+        else {
+            boolean include=walletCheck(wallet,m-wallet[s],s+1);
+            boolean exclude=walletCheck(wallet,m, s+1);
+            if(include==true||exclude==true)return true;
+            else return false;
+        }
+    }
+    public static void main(String[]args) throws IOException {
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        int t=Integer.parseInt(input.readLine());
+        for (;t>0;t--) {
+            String[] nm=input.readLine().split(" ");
+            int n=Integer.parseInt(nm[0]);
+            int m=Integer.parseInt(nm[1]);
+            int[] wallet=new int[n];
+            for(int i=0;i<n;i++){
+                wallet[i]=Integer.parseInt(input.readLine());
+            }
+            boolean possible=walletCheck(wallet,m,0);
+            if(possible)System.out.println("Yes");
+            else System.out.println("No");
+        }
+    }
+}
